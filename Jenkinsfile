@@ -5,7 +5,7 @@ pipeline {
 
         stage('Clone') {
             steps {
-                git 'https://github.com/chandanajn/gha-'
+                git 'https://github.com/chandanajn/gha-.git'
             }
         }
 
