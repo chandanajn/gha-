@@ -3,21 +3,15 @@ pipeline {
 
     stages {
 
-        stage('Clone') {
-            steps {
-                git 'https://github.com/chandanajn/gha-.git'
-            }
-        }
-
         stage('Build Docker Image') {
             steps {
-                sh 'docker build -t myapp .'
+                bat 'docker build -t jnchandana/gha:latest .'
             }
         }
 
         stage('Push Docker Image') {
             steps {
-                sh 'docker push myapp'
+                bat 'docker push jnchandana/gha:latest'
             }
         }
     }
