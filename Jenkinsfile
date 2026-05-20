@@ -31,6 +31,12 @@ pipeline {
             }
         }
 
+        stage('Trivy Scan') {
+            steps {
+                bat 'C:\\trivy\\trivy.exe image jnchandana/gha:latest'
+            }
+        }
+
         stage('Docker Login') {
             steps {
 
