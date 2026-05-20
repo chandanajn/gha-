@@ -4,4 +4,4 @@ app = FastAPI()
 
 @app.get("/")
 def home():
-    return {"message": "Hello"}
+    return {"message": "Hello from Github Actions"}
