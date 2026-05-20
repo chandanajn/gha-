@@ -1,7 +1,29 @@
 pipeline {
     agent any
 
+    environment {
+        SONAR_SCANNER = tool 'SonarScanner'
+    }
+
     stages {
+
+        stage('Checkout Code') {
+            steps {
+                checkout scm
+            }
+        }
+
+        stage('SonarQube Analysis') {
+            steps {
+
+                withSonarQubeEnv('sonarqube') {
+
+                    bat """
+                    %SONAR_SCANNER%\\bin\\sonar-scanner.bat
+                    """
+                }
+            }
+        }
 
         stage('Build Docker Image') {
             steps {
@@ -11,11 +33,13 @@ pipeline {
 
         stage('Docker Login') {
             steps {
+
                 withCredentials([usernamePassword(
                     credentialsId: 'dockerhub-creds',
                     usernameVariable: 'DOCKER_USER',
                     passwordVariable: 'DOCKER_PASS'
                 )]) {
+
                     bat 'docker login -u %DOCKER_USER% -p %DOCKER_PASS%'
                 }
             }
