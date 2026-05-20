@@ -3,21 +3,21 @@ pipeline {
 
     stages {
 
-        stage('Build') {
+        stage('Clone') {
             steps {
-                echo 'Building Application'
+                git 'https://github.com/project/repo.git'
             }
         }
 
-        stage('Test') {
+        stage('Build Docker Image') {
             steps {
-                echo 'Testing Application'
+                sh 'docker build -t myapp .'
             }
         }
 
-        stage('Deploy') {
+        stage('Push Docker Image') {
             steps {
-                echo 'Deploying Application'
+                sh 'docker push myapp'
             }
         }
     }
